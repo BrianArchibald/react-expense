@@ -21,9 +21,19 @@ export const GlobalContext = createContext(initalState);
 export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initalState); // need to call dispatch whenever using a reducer
 
-    // whatever we wrap in App.js is going to be the children, provides state to the children
+    // Actions
+    function deleteTransaction(id) {
+        dispatch({                         // sending a dispatch to the reducer with type and payload
+            type: 'DELETE_TRANSACTION',
+            payload: id
+        }); 
+    }
+
+    // whatever we wrap in App.js is going to be the children, provides state to the children,
+    // can pull these items out and use them in children components
     return (<GlobalContext.Provider value={{
-        transactions: state.transactions
+        transactions: state.transactions,
+        deleteTransaction
     }}>
         {children}  
     </GlobalContext.Provider>)
