@@ -29,11 +29,19 @@ export const GlobalProvider = ({ children }) => {
         }); 
     }
 
+    function addTransaction(transaction) {
+        dispatch({                         // sending a dispatch to the reducer with type and payload
+            type: 'ADD_TRANSACTION',
+            payload: transaction
+        }); 
+    }
+
     // whatever we wrap in App.js is going to be the children, provides state to the children,
     // can pull these items out and use them in children components
     return (<GlobalContext.Provider value={{
         transactions: state.transactions,
-        deleteTransaction
+        deleteTransaction,
+        addTransaction
     }}>
         {children}  
     </GlobalContext.Provider>)
